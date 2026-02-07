@@ -18,6 +18,5 @@ def keep_alive():
 
 # Main section to start the bot
 if __name__ == "__main__":
-    keep_alive()  # This will keep port 8000 active
-    app = Bot()
-    app.run()
+    keep_alive()
+    Bot().run()
