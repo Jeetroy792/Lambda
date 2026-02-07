@@ -1,23 +1,22 @@
 FROM python:3.12-slim
 
-# Install required system dependencies
+# প্রয়োজনীয় সিস্টেম ডিপেন্ডেন্সি ইনস্টল করা
 RUN apt update && apt install -y \
     git gcc python3-dev libffi-dev build-essential \
     && apt upgrade -y
 
-# Set up working directory
+# কাজের ডিরেক্টরি সেট করা
 RUN mkdir /fwdbot
 WORKDIR /fwdbot
 
-# Copy requirements file and install dependencies
-COPY requirements.txt .
-RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
-
-# Copy all project files into the working directory
+# রিপোজিটরির সব ফাইল কন্টেইনারে কপি করা (সবচেয়ে গুরুত্বপূর্ণ)
 COPY . .
 
-# Ensure start.sh has execution permissions
+# ডিপেন্ডেন্সি ইনস্টল করা
+RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
+
+# চালনার অনুমতি দেওয়া
 RUN chmod +x start.sh
 
-# Start the application
+# বট চালু করার কমান্ড
 CMD ["/bin/bash", "start.sh"]
